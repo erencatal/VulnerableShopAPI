@@ -1,0 +1,74 @@
+name: Continuous Security Testing Pipeline
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch: # Allows manual triggering from GitHub Actions tab
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Checkout Source Code
+        uses: actions/checkout@v4
+
+      # LAYER 1: SAST (Static Application Security Testing with Semgrep)
+      - name: 2. Run SAST Scan (Semgrep)
+        uses: semgrep/semgrep-action@v1
+        continue-on-error: true
+        with:
+          config: >-
+            p/csharp
+            p/security-audit
+            p/secrets
+          generateSarif: "1"
+        env:
+          SEMGREP_REPO_NAME: ${{ github.repository }}
+
+      - name: Export Semgrep JSON Report
+        run: |
+          pip install semgrep
+          semgrep --config p/csharp --config p/security-audit --config p/secrets --json -o semgrep-report.json . || true
+
+      # LAYER 2: SCA (Software Composition Analysis with Trivy)
+      - name: 3. Run Dependency Scan (Trivy)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'json'
+          output: 'trivy-report.json'
+
+      # LAYER 3: DAST (Dynamic Application Security Testing with OWASP ZAP)
+      - name: 4. Build and Start Target Web App (Docker)
+        run: |
+          if [ -f Dockerfile ]; then
+            docker build -t vulnerable-shop .
+          else
+            docker build -t vulnerable-shop ./VulnerableShopAPI
+          fi
+          docker run -d --name target-app -p 8080:8080 vulnerable-shop
+          sleep 10 # Wait for ASP.NET Core to initialize
+
+      - name: 5. Run DAST Scan (OWASP ZAP Baseline)
+        uses: zaproxy/action-baseline@v0.12.0
+        continue-on-error: true
+        with:
+          target: 'http://172.17.0.1:8080/swagger/v1/swagger.json'
+          cmd_options: '-a -j'
+          allow_issue_writing: false
+
+      - name: Rename ZAP Report
+        run: |
+          if [ -f report_json.json ]; then mv report_json.json zap-report.json; fi
+
+      # COLLECT ALL RAW REPORTS FOR OUR PRIORITIZATION ENGINE
+      - name: 6. Upload Security Reports as Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: raw-security-reports
+          path: |
+            semgrep-report.json
+            trivy-report.json
+            zap-report.json
