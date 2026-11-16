@@ -3,7 +3,7 @@ name: Continuous Security Testing Pipeline
 on:
   push:
     branches: [ "main", "master" ]
-  workflow_dispatch: # Allows manual triggering from GitHub Actions tab
+  workflow_dispatch:
 
 jobs:
   security-scan:
@@ -13,25 +13,24 @@ jobs:
       - name: 1. Checkout Source Code
         uses: actions/checkout@v4
 
-      # LAYER 1: SAST (Static Application Security Testing with Semgrep)
-      - name: 2. Run SAST Scan (Semgrep)
-        uses: semgrep/semgrep-action@v1
-        continue-on-error: true
+      - name: Setup .NET 10 SDK
+        uses: actions/setup-dotnet@v4
         with:
-          config: >-
-            p/csharp
-            p/security-audit
-            p/secrets
-          generateSarif: "1"
-        env:
-          SEMGREP_REPO_NAME: ${{ github.repository }}
+          dotnet-version: '10.0.x'
 
-      - name: Export Semgrep JSON Report
+      - name: Start Timer & Restore Dependencies
+        run: |
+          echo "START_TIME=$(date +%s)" >> $GITHUB_ENV
+          dotnet restore VulnerableShopAPI/VulnerableShopAPI.csproj --use-lock-file
+          dotnet build VulnerableShopAPI/VulnerableShopAPI.csproj -c Release
+
+      # LAYER 1: SAST (Static Analysis)
+      - name: 2. Run SAST Scan (Semgrep)
         run: |
           pip install semgrep
           semgrep --config p/csharp --config p/security-audit --config p/secrets --json -o semgrep-report.json . || true
 
-      # LAYER 2: SCA (Software Composition Analysis with Trivy)
+      # LAYER 2: SCA (Dependency Scan - Now detects NuGet packages via lock/deps files)
       - name: 3. Run Dependency Scan (Trivy)
         uses: aquasecurity/trivy-action@master
         with:
@@ -40,34 +39,32 @@ jobs:
           format: 'json'
           output: 'trivy-report.json'
 
-      # LAYER 3: DAST (Dynamic Application Security Testing with OWASP ZAP)
+      # LAYER 3: DAST (Active Dynamic Scan)
       - name: 4. Build and Start Target Web App (Docker)
         run: |
-          if [ -f Dockerfile ]; then
-            docker build -t vulnerable-shop .
-          else
-            docker build -t vulnerable-shop ./VulnerableShopAPI
-          fi
+          docker build -t vulnerable-shop -f VulnerableShopAPI/Dockerfile VulnerableShopAPI
           docker run -d --name target-app -p 8080:8080 vulnerable-shop
-          sleep 10 # Wait for ASP.NET Core to initialize
+          sleep 10
 
-      - name: 5. Run DAST Scan (OWASP ZAP Baseline)
-        uses: zaproxy/action-baseline@v0.12.0
+      - name: 5. Run Active DAST Scan (OWASP ZAP Full Scan)
+        uses: zaproxy/action-full-scan@v0.10.0
         continue-on-error: true
         with:
           target: 'http://172.17.0.1:8080/swagger/v1/swagger.json'
-          cmd_options: '-a -j'
+          cmd_options: '-a -j -m 2'
           allow_issue_writing: false
 
-      - name: Rename ZAP Report
+      - name: Rename ZAP Report & Calculate Overhead
         run: |
           if [ -f report_json.json ]; then mv report_json.json zap-report.json; fi
+          END_TIME=$(date +%s)
+          echo "TOTAL_PIPELINE_SECONDS=$((END_TIME - START_TIME))" >> $GITHUB_ENV
+          echo "Total Security Pipeline Duration: $((END_TIME - START_TIME)) seconds"
 
-      # COLLECT ALL RAW REPORTS FOR OUR PRIORITIZATION ENGINE
-      - name: 6. Upload Security Reports as Artifacts
+      - name: 6. Upload Complete Security Reports
         uses: actions/upload-artifact@v4
         with:
-          name: raw-security-reports
+          name: full-security-reports
           path: |
             semgrep-report.json
             trivy-report.json
