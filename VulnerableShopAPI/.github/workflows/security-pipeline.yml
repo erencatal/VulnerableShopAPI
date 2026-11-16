@@ -30,7 +30,7 @@ jobs:
           pip install semgrep
           semgrep --config p/csharp --config p/security-audit --config p/secrets --json -o semgrep-report.json . || true
 
-      # LAYER 2: SCA (Dependency Scan - Now detects NuGet packages via lock/deps files)
+      # LAYER 2: SCA (Dependency Scan - Now detects NuGet packages via assets file)
       - name: 3. Run Dependency Scan (Trivy)
         uses: aquasecurity/trivy-action@master
         with:
@@ -69,3 +69,53 @@ jobs:
             semgrep-report.json
             trivy-report.json
             zap-report.json
+
+  benchmark-juice-shop:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Clone OWASP Juice Shop Source (Shallow)
+        run: |
+          git clone --depth 1 https://github.com/juice-shop/juice-shop.git target-juiceshop
+
+      # LAYER 1: SAST on Juice Shop
+      - name: 2. Run SAST Scan (Semgrep)
+        run: |
+          pip install semgrep
+          semgrep --config p/javascript --config p/security-audit --json -o juiceshop-semgrep.json target-juiceshop/routes || true
+
+      # LAYER 2: SCA on Juice Shop
+      - name: 3. Run Dependency Scan (Trivy)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: 'target-juiceshop'
+          format: 'json'
+          output: 'juiceshop-trivy.json'
+
+      # LAYER 3: DAST on Running Juice Shop Container
+      - name: 4. Start OWASP Juice Shop Container
+        run: |
+          docker run -d --name juice-shop -p 3000:3000 bkimminich/juice-shop
+          sleep 15
+
+      - name: 5. Run DAST Scan (OWASP ZAP Baseline)
+        uses: zaproxy/action-baseline@v0.12.0
+        continue-on-error: true
+        with:
+          target: 'http://172.17.0.1:3000'
+          cmd_options: '-a -j -m 2'
+          allow_issue_writing: false
+
+      - name: Rename ZAP Report
+        run: |
+          if [ -f report_json.json ]; then mv report_json.json juiceshop-zap.json; fi
+
+      - name: 6. Upload Juice Shop Benchmark Reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: juiceshop-security-reports
+          path: |
+            juiceshop-semgrep.json
+            juiceshop-trivy.json
+            juiceshop-zap.json
