@@ -1,0 +1,704 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.76.2"
+  },
+  "ReportID": "01a1e4be-df39-79bb-93b9-640175b7656c",
+  "CreatedAt": "2026-11-16T14:24:36.665639227Z",
+  "ArtifactID": "sha256:f8c5b112469107c447c923e138ddfe06feaf67f8123c9ffc98eca82ad37687ab",
+  "ArtifactName": ".",
+  "ArtifactType": "repository",
+  "Metadata": {
+    "RepoURL": "https://github.com/erencatal/VulnerableShopAPI",
+    "Branch": "main",
+    "Commit": "1bfe4a916e0c294450f9399fd68477ee47975d76",
+    "CommitMsg": "Update security-pipeline.yml: add dotnet restore/build, ZAP full-scan, and pipeline timer",
+    "Author": "erencatal \u003c1erencatal@gmail.com\u003e",
+    "Committer": "erencatal \u003c1erencatal@gmail.com\u003e"
+  },
+  "Results": [
+    {
+      "Target": "VulnerableShopAPI/bin/Release/net10.0/VulnerableShopAPI.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core",
+      "Packages": [
+        {
+          "ID": "VulnerableShopAPI/1.0.0",
+          "Name": "VulnerableShopAPI",
+          "Identifier": {
+            "PURL": "pkg:nuget/VulnerableShopAPI@1.0.0",
+            "UID": "2095724ba8362ec4"
+          },
+          "Version": "1.0.0",
+          "Relationship": "root",
+          "DependsOn": [
+            "Newtonsoft.Json/12.0.3"
+          ],
+          "Locations": [
+            {
+              "StartLine": 322,
+              "EndLine": 326
+            }
+          ],
+          "AnalyzedBy": "dotnet-core"
+        },
+        {
+          "ID": "Newtonsoft.Json/12.0.3",
+          "Name": "Newtonsoft.Json",
+          "Identifier": {
+            "PURL": "pkg:nuget/Newtonsoft.Json@12.0.3",
+            "UID": "bde052f20873469b"
+          },
+          "Version": "12.0.3",
+          "Relationship": "direct",
+          "Locations": [
+            {
+              "StartLine": 348,
+              "EndLine": 354
+            }
+          ],
+          "AnalyzedBy": "dotnet-core"
+        },
+        {
+          "ID": "Microsoft.Data.Sqlite.Core/11.0.0",
+          "Name": "Microsoft.Data.Sqlite.Core",
+          "Identifier": {
+            "PURL": "pkg:nuget/Microsoft.Data.Sqlite.Core@11.0.0",
+            "UID": "7e9ac177f8117127"
+          },
+          "Version": "11.0.0",
+          "Indirect": true,
+          "Relationship": "indirect",
+          "DependsOn": [
+            "SQLitePCLRaw.core/3.0.5"
+          ],
+          "Locations": [
+            {
+              "StartLine": 334,
+              "EndLine": 340
+            }
+          ],
+          "AnalyzedBy": "dotnet-core"
+        },
+        {
+          "ID": "Microsoft.OpenApi/3.11.0",
+          "Name": "Microsoft.OpenApi",
+          "Identifier": {
+            "PURL": "pkg:nuget/Microsoft.OpenApi@3.11.0",
+            "UID": "67a0cd76df68cd24"
+          },
+          "Version": "3.11.0",
+          "Indirect": true,
+          "Relationship": "indirect",
+          "Locations": [
+            {
+              "StartLine": 341,
+              "EndLine": 347
+            }
+          ],
+          "AnalyzedBy": "dotnet-core"
+        },
+        {
+          "ID": "SQLite/3.53.4",
+          "Name": "SQLite",
+          "Identifier": {
+            "PURL": "pkg:nuget/SQLite@3.53.4",
+            "UID": "872f949fb6d54d31"
+          },
+          "Version": "3.53.4",
+          "Indirect": true,
+          "Relationship": "indirect",
+          "Locations": [
+            {
+              "StartLine": 355,
+              "EndLine": 361
+            }
+          ],
+          "AnalyzedBy": "dotnet-core"
+        },
+        {
+          "ID": "SQLitePCLRaw.config.e_sqlite3/3.0.5",
+          "Name": "SQLitePCLRaw.config.e_sqlite3",
+          "Identifier": {
+            "PURL": "pkg:nuget/SQLitePCLRaw.config.e_sqlite3@3.0.5",
+            "UID": "391da0de22204938"
+          },
+          "Version": "3.0.5",
+          "Indirect": true,
+          "Relationship": "indirect",
+          "DependsOn": [
+            "SQLitePCLRaw.provider.e_sqlite3/3.0.5"
+          ],
+          "Locations": [
+            {
+              "StartLine": 369,
+              "EndLine": 375
+            }
+          ],
+          "AnalyzedBy": "dotnet-core"
+        },
+        {
+          "ID": "SQLitePCLRaw.core/3.0.5",
+          "Name": "SQLitePCLRaw.core",
+          "Identifier": {
+            "PURL": "pkg:nuget/SQLitePCLRaw.core@3.0.5",
+            "UID": "54e64d3467b15e04"
+          },
+          "Version": "3.0.5",
+          "Indirect": true,
+          "Relationship": "indirect",
+          "Locations": [
+            {
+              "StartLine": 376,
+              "EndLine": 382
+            }
+          ],
+          "AnalyzedBy": "dotnet-core"
+        },
+        {
+          "ID": "SQLitePCLRaw.provider.e_sqlite3/3.0.5",
+          "Name": "SQLitePCLRaw.provider.e_sqlite3",
+          "Identifier": {
+            "PURL": "pkg:nuget/SQLitePCLRaw.provider.e_sqlite3@3.0.5",
+            "UID": "25dd666ca8ac6d10"
+          },
+          "Version": "3.0.5",
+          "Indirect": true,
+          "Relationship": "indirect",
+          "DependsOn": [
+            "SQLitePCLRaw.core/3.0.5"
+          ],
+          "Locations": [
+            {
+              "StartLine": 383,
+              "EndLine": 389
+            }
+          ],
+          "AnalyzedBy": "dotnet-core"
+        },
+        {
+          "ID": "Swashbuckle.AspNetCore.Swagger/11.0.1",
+          "Name": "Swashbuckle.AspNetCore.Swagger",
+          "Identifier": {
+            "PURL": "pkg:nuget/Swashbuckle.AspNetCore.Swagger@11.0.1",
+            "UID": "6afddef67b9e1a71"
+          },
+          "Version": "11.0.1",
+          "Indirect": true,
+          "Relationship": "indirect",
+          "DependsOn": [
+            "Microsoft.OpenApi/3.11.0"
+          ],
+          "Locations": [
+            {
+              "StartLine": 397,
+              "EndLine": 403
+            }
+          ],
+          "AnalyzedBy": "dotnet-core"
+        },
+        {
+          "ID": "Swashbuckle.AspNetCore.SwaggerGen/11.0.1",
+          "Name": "Swashbuckle.AspNetCore.SwaggerGen",
+          "Identifier": {
+            "PURL": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@11.0.1",
+            "UID": "4fc8ec8f110eaba5"
+          },
+          "Version": "11.0.1",
+          "Indirect": true,
+          "Relationship": "indirect",
+          "DependsOn": [
+            "Swashbuckle.AspNetCore.Swagger/11.0.1"
+          ],
+          "Locations": [
+            {
+              "StartLine": 404,
+              "EndLine": 410
+            }
+          ],
+          "AnalyzedBy": "dotnet-core"
+        },
+        {
+          "ID": "Swashbuckle.AspNetCore.SwaggerUI/11.0.1",
+          "Name": "Swashbuckle.AspNetCore.SwaggerUI",
+          "Identifier": {
+            "PURL": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerUI@11.0.1",
+            "UID": "db93cc22f40a9131"
+          },
+          "Version": "11.0.1",
+          "Indirect": true,
+          "Relationship": "indirect",
+          "Locations": [
+            {
+              "StartLine": 411,
+              "EndLine": 417
+            }
+          ],
+          "AnalyzedBy": "dotnet-core"
+        }
+      ],
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2024-21907",
+          "VendorIDs": [
+            "GHSA-5crp-9r3c-p9vr"
+          ],
+          "PkgID": "Newtonsoft.Json/12.0.3",
+          "PkgName": "Newtonsoft.Json",
+          "PkgIdentifier": {
+            "PURL": "pkg:nuget/Newtonsoft.Json@12.0.3",
+            "UID": "bde052f20873469b"
+          },
+          "InstalledVersion": "12.0.3",
+          "FixedVersion": "13.0.1",
+          "Status": "fixed",
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-21907",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory NuGet",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Anuget"
+          },
+          "Fingerprint": "sha256:e2fc7830e9dd4b5385be7de6c2921aeb84882a471b78e21b3858e6d70f1ee701",
+          "Title": "Improper Handling of Exceptional Conditions in Newtonsoft.Json",
+          "Description": "Newtonsoft.Json before version 13.0.1 is affected by a mishandling of exceptional conditions vulnerability. Crafted data that is passed to the JsonConvert.DeserializeObject method may trigger a StackOverflow exception resulting in denial of service. Depending on the usage of the library, an unauthenticated and remote attacker may be able to cause the denial of service condition.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-755"
+          ],
+          "VendorSeverity": {
+            "ghsa": 3,
+            "nvd": 3
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            }
+          },
+          "References": [
+            "https://advisory.echohq.com/cve/CVE-2024-21907",
+            "https://alephsecurity.com/2018/10/22/StackOverflowException",
+            "https://alephsecurity.com/2018/10/22/StackOverflowException/",
+            "https://alephsecurity.com/vulns/aleph-2018004",
+            "https://github.com/JamesNK/Newtonsoft.Json",
+            "https://github.com/JamesNK/Newtonsoft.Json/commit/7e77bbe1beccceac4fc7b174b53abfefac278b66",
+            "https://github.com/JamesNK/Newtonsoft.Json/issues/2457",
+            "https://github.com/JamesNK/Newtonsoft.Json/pull/2462",
+            "https://github.com/advisories/GHSA-5crp-9r3c-p9vr",
+            "https://security.snyk.io/vuln/SNYK-DOTNET-NEWTONSOFTJSON-2774678",
+            "https://vulncheck.com/advisories/vc-advisory-GHSA-5crp-9r3c-p9vr"
+          ],
+          "PublishedDate": "2024-01-03T16:15:08.793Z",
+          "LastModifiedDate": "2026-07-14T23:17:13.903Z"
+        }
+      ]
+    },
+    {
+      "Target": "VulnerableShopAPI/packages.lock.json",
+      "Class": "lang-pkgs",
+      "Type": "nuget",
+      "Packages": [
+        {
+          "ID": "Microsoft.Data.Sqlite@11.0.0",
+          "Name": "Microsoft.Data.Sqlite",
+          "Identifier": {
+            "PURL": "pkg:nuget/Microsoft.Data.Sqlite@11.0.0",
+            "UID": "635d63dcc7f388a9"
+          },
+          "Version": "11.0.0",
+          "Licenses": [
+            "MIT"
+          ],
+          "Relationship": "direct",
+          "DependsOn": [
+            "Microsoft.Data.Sqlite.Core@11.0.0",
+            "SQLitePCLRaw.bundle_e_sqlite3@3.0.5",
+            "SQLitePCLRaw.core@3.0.5"
+          ],
+          "Locations": [
+            {
+              "StartLine": 5,
+              "EndLine": 15
+            }
+          ],
+          "AnalyzedBy": "nuget"
+        },
+        {
+          "ID": "Microsoft.VisualStudio.Azure.Containers.Tools.Targets@1.24.2-preview.1",
+          "Name": "Microsoft.VisualStudio.Azure.Containers.Tools.Targets",
+          "Identifier": {
+            "PURL": "pkg:nuget/Microsoft.VisualStudio.Azure.Containers.Tools.Targets@1.24.2-preview.1",
+            "UID": "ff582eac97166231"
+          },
+          "Version": "1.24.2-preview.1",
+          "Relationship": "direct",
+          "Locations": [
+            {
+              "StartLine": 16,
+              "EndLine": 21
+            }
+          ],
+          "AnalyzedBy": "nuget"
+        },
+        {
+          "ID": "Newtonsoft.Json@12.0.3",
+          "Name": "Newtonsoft.Json",
+          "Identifier": {
+            "PURL": "pkg:nuget/Newtonsoft.Json@12.0.3",
+            "UID": "c4357c28a5d0d6c6"
+          },
+          "Version": "12.0.3",
+          "Licenses": [
+            "MIT"
+          ],
+          "Relationship": "direct",
+          "Locations": [
+            {
+              "StartLine": 22,
+              "EndLine": 27
+            }
+          ],
+          "AnalyzedBy": "nuget"
+        },
+        {
+          "ID": "Swashbuckle.AspNetCore@11.0.1",
+          "Name": "Swashbuckle.AspNetCore",
+          "Identifier": {
+            "PURL": "pkg:nuget/Swashbuckle.AspNetCore@11.0.1",
+            "UID": "102fd586d5f62765"
+          },
+          "Version": "11.0.1",
+          "Licenses": [
+            "MIT"
+          ],
+          "Relationship": "direct",
+          "DependsOn": [
+            "Swashbuckle.AspNetCore.Swagger@11.0.1",
+            "Swashbuckle.AspNetCore.SwaggerGen@11.0.1",
+            "Swashbuckle.AspNetCore.SwaggerUI@11.0.1",
+            "Microsoft.Extensions.ApiDescription.Server@10.0.0"
+          ],
+          "Locations": [
+            {
+              "StartLine": 28,
+              "EndLine": 39
+            }
+          ],
+          "AnalyzedBy": "nuget"
+        },
+        {
+          "ID": "Microsoft.Data.Sqlite.Core@11.0.0",
+          "Name": "Microsoft.Data.Sqlite.Core",
+          "Identifier": {
+            "PURL": "pkg:nuget/Microsoft.Data.Sqlite.Core@11.0.0",
+            "UID": "3e80b306077d96b1"
+          },
+          "Version": "11.0.0",
+          "Licenses": [
+            "MIT"
+          ],
+          "Indirect": true,
+          "Relationship": "indirect",
+          "DependsOn": [
+            "SQLitePCLRaw.core@3.0.5"
+          ],
+          "Locations": [
+            {
+              "StartLine": 40,
+              "EndLine": 47
+            }
+          ],
+          "AnalyzedBy": "nuget"
+        },
+        {
+          "ID": "Microsoft.Extensions.ApiDescription.Server@10.0.0",
+          "Name": "Microsoft.Extensions.ApiDescription.Server",
+          "Identifier": {
+            "PURL": "pkg:nuget/Microsoft.Extensions.ApiDescription.Server@10.0.0",
+            "UID": "bc8e2450af1d3339"
+          },
+          "Version": "10.0.0",
+          "Licenses": [
+            "MIT"
+          ],
+          "Indirect": true,
+          "Relationship": "indirect",
+          "Locations": [
+            {
+              "StartLine": 48,
+              "EndLine": 52
+            }
+          ],
+          "AnalyzedBy": "nuget"
+        },
+        {
+          "ID": "Microsoft.OpenApi@3.11.0",
+          "Name": "Microsoft.OpenApi",
+          "Identifier": {
+            "PURL": "pkg:nuget/Microsoft.OpenApi@3.11.0",
+            "UID": "fa5dccb0e5bfb9eb"
+          },
+          "Version": "3.11.0",
+          "Licenses": [
+            "MIT"
+          ],
+          "Indirect": true,
+          "Relationship": "indirect",
+          "Locations": [
+            {
+              "StartLine": 53,
+              "EndLine": 57
+            }
+          ],
+          "AnalyzedBy": "nuget"
+        },
+        {
+          "ID": "SQLite@3.53.4",
+          "Name": "SQLite",
+          "Identifier": {
+            "PURL": "pkg:nuget/SQLite@3.53.4",
+            "UID": "76209f7080de74aa"
+          },
+          "Version": "3.53.4",
+          "Indirect": true,
+          "Relationship": "indirect",
+          "Locations": [
+            {
+              "StartLine": 58,
+              "EndLine": 62
+            }
+          ],
+          "AnalyzedBy": "nuget"
+        },
+        {
+          "ID": "SQLitePCLRaw.bundle_e_sqlite3@3.0.5",
+          "Name": "SQLitePCLRaw.bundle_e_sqlite3",
+          "Identifier": {
+            "PURL": "pkg:nuget/SQLitePCLRaw.bundle_e_sqlite3@3.0.5",
+            "UID": "bd3c23514ffd68"
+          },
+          "Version": "3.0.5",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "Indirect": true,
+          "Relationship": "indirect",
+          "DependsOn": [
+            "SQLite@3.53.4",
+            "SQLitePCLRaw.config.e_sqlite3@3.0.5"
+          ],
+          "Locations": [
+            {
+              "StartLine": 63,
+              "EndLine": 71
+            }
+          ],
+          "AnalyzedBy": "nuget"
+        },
+        {
+          "ID": "SQLitePCLRaw.config.e_sqlite3@3.0.5",
+          "Name": "SQLitePCLRaw.config.e_sqlite3",
+          "Identifier": {
+            "PURL": "pkg:nuget/SQLitePCLRaw.config.e_sqlite3@3.0.5",
+            "UID": "2df6562a9f1feddc"
+          },
+          "Version": "3.0.5",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "Indirect": true,
+          "Relationship": "indirect",
+          "DependsOn": [
+            "SQLitePCLRaw.provider.e_sqlite3@3.0.5"
+          ],
+          "Locations": [
+            {
+              "StartLine": 72,
+              "EndLine": 79
+            }
+          ],
+          "AnalyzedBy": "nuget"
+        },
+        {
+          "ID": "SQLitePCLRaw.core@3.0.5",
+          "Name": "SQLitePCLRaw.core",
+          "Identifier": {
+            "PURL": "pkg:nuget/SQLitePCLRaw.core@3.0.5",
+            "UID": "6295dd5d7be236d2"
+          },
+          "Version": "3.0.5",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "Indirect": true,
+          "Relationship": "indirect",
+          "Locations": [
+            {
+              "StartLine": 80,
+              "EndLine": 84
+            }
+          ],
+          "AnalyzedBy": "nuget"
+        },
+        {
+          "ID": "SQLitePCLRaw.provider.e_sqlite3@3.0.5",
+          "Name": "SQLitePCLRaw.provider.e_sqlite3",
+          "Identifier": {
+            "PURL": "pkg:nuget/SQLitePCLRaw.provider.e_sqlite3@3.0.5",
+            "UID": "7c5b8249363cb916"
+          },
+          "Version": "3.0.5",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "Indirect": true,
+          "Relationship": "indirect",
+          "DependsOn": [
+            "SQLitePCLRaw.core@3.0.5"
+          ],
+          "Locations": [
+            {
+              "StartLine": 85,
+              "EndLine": 92
+            }
+          ],
+          "AnalyzedBy": "nuget"
+        },
+        {
+          "ID": "Swashbuckle.AspNetCore.Swagger@11.0.1",
+          "Name": "Swashbuckle.AspNetCore.Swagger",
+          "Identifier": {
+            "PURL": "pkg:nuget/Swashbuckle.AspNetCore.Swagger@11.0.1",
+            "UID": "78533b2c9a556b16"
+          },
+          "Version": "11.0.1",
+          "Licenses": [
+            "MIT"
+          ],
+          "Indirect": true,
+          "Relationship": "indirect",
+          "DependsOn": [
+            "Microsoft.OpenApi@3.11.0"
+          ],
+          "Locations": [
+            {
+              "StartLine": 93,
+              "EndLine": 100
+            }
+          ],
+          "AnalyzedBy": "nuget"
+        },
+        {
+          "ID": "Swashbuckle.AspNetCore.SwaggerGen@11.0.1",
+          "Name": "Swashbuckle.AspNetCore.SwaggerGen",
+          "Identifier": {
+            "PURL": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@11.0.1",
+            "UID": "9df0ff2a228767cb"
+          },
+          "Version": "11.0.1",
+          "Licenses": [
+            "MIT"
+          ],
+          "Indirect": true,
+          "Relationship": "indirect",
+          "DependsOn": [
+            "Swashbuckle.AspNetCore.Swagger@11.0.1"
+          ],
+          "Locations": [
+            {
+              "StartLine": 101,
+              "EndLine": 108
+            }
+          ],
+          "AnalyzedBy": "nuget"
+        },
+        {
+          "ID": "Swashbuckle.AspNetCore.SwaggerUI@11.0.1",
+          "Name": "Swashbuckle.AspNetCore.SwaggerUI",
+          "Identifier": {
+            "PURL": "pkg:nuget/Swashbuckle.AspNetCore.SwaggerUI@11.0.1",
+            "UID": "b7f438107cdacf27"
+          },
+          "Version": "11.0.1",
+          "Licenses": [
+            "MIT"
+          ],
+          "Indirect": true,
+          "Relationship": "indirect",
+          "Locations": [
+            {
+              "StartLine": 109,
+              "EndLine": 113
+            }
+          ],
+          "AnalyzedBy": "nuget"
+        }
+      ],
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2024-21907",
+          "VendorIDs": [
+            "GHSA-5crp-9r3c-p9vr"
+          ],
+          "PkgID": "Newtonsoft.Json@12.0.3",
+          "PkgName": "Newtonsoft.Json",
+          "PkgIdentifier": {
+            "PURL": "pkg:nuget/Newtonsoft.Json@12.0.3",
+            "UID": "c4357c28a5d0d6c6"
+          },
+          "InstalledVersion": "12.0.3",
+          "FixedVersion": "13.0.1",
+          "Status": "fixed",
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-21907",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory NuGet",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Anuget"
+          },
+          "Fingerprint": "sha256:fa09a903e0f129668ef5b6d26fd0f24efc90a470605e5332f0fe8e47d9b2cef2",
+          "Title": "Improper Handling of Exceptional Conditions in Newtonsoft.Json",
+          "Description": "Newtonsoft.Json before version 13.0.1 is affected by a mishandling of exceptional conditions vulnerability. Crafted data that is passed to the JsonConvert.DeserializeObject method may trigger a StackOverflow exception resulting in denial of service. Depending on the usage of the library, an unauthenticated and remote attacker may be able to cause the denial of service condition.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-755"
+          ],
+          "VendorSeverity": {
+            "ghsa": 3,
+            "nvd": 3
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            }
+          },
+          "References": [
+            "https://advisory.echohq.com/cve/CVE-2024-21907",
+            "https://alephsecurity.com/2018/10/22/StackOverflowException",
+            "https://alephsecurity.com/2018/10/22/StackOverflowException/",
+            "https://alephsecurity.com/vulns/aleph-2018004",
+            "https://github.com/JamesNK/Newtonsoft.Json",
+            "https://github.com/JamesNK/Newtonsoft.Json/commit/7e77bbe1beccceac4fc7b174b53abfefac278b66",
+            "https://github.com/JamesNK/Newtonsoft.Json/issues/2457",
+            "https://github.com/JamesNK/Newtonsoft.Json/pull/2462",
+            "https://github.com/advisories/GHSA-5crp-9r3c-p9vr",
+            "https://security.snyk.io/vuln/SNYK-DOTNET-NEWTONSOFTJSON-2774678",
+            "https://vulncheck.com/advisories/vc-advisory-GHSA-5crp-9r3c-p9vr"
+          ],
+          "PublishedDate": "2024-01-03T16:15:08.793Z",
+          "LastModifiedDate": "2026-07-14T23:17:13.903Z"
+        }
+      ]
+    }
+  ]
+}

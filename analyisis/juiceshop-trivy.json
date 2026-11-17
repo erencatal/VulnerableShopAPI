@@ -1,0 +1,315 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.76.2"
+  },
+  "ReportID": "01a1e4cf-0aee-7255-bb12-edc2d713b30c",
+  "CreatedAt": "2026-11-16T14:42:16.430155451Z",
+  "ArtifactID": "sha256:a51149fddc9bacafa79abbeaec63f825617062ac484f2ec874786b67640de2bf",
+  "ArtifactName": "target-juiceshop",
+  "ArtifactType": "repository",
+  "Metadata": {
+    "RepoURL": "https://github.com/juice-shop/juice-shop.git",
+    "Branch": "master",
+    "Commit": "266448aba68cd8ba5915f526a128da4fa7bc3f9f",
+    "CommitMsg": "Post merge fixes for #3720\n\n1. Null fields on edit: initializeForm now turns null into '' for every\n   text field, so the edit page no longer crashes on addresses without a\n   zip code or street.\n2. Length errors: zip code and street address now show a mat-error\n   (MAX_TEXTAREA_LENGTH) when they are too long.\n3. Double submit: the Submit button is also disabled while saving\n   (addressForm().submitting()).\n4. Failed save: the catch in save() no longer calls resetForm(), so the\n   user's input survives a server error. I rewrote the two existing\n   tests that expected the form to be cleared; they now check that the\n   values are kept.\n5. Mobile number range: the minimum is now 1000000, matching the server\n   and the error text. The range in the error message is built from the\n   same constants.\n6. Address list reload: AddressComponent.load() now goes through a\n   Subject with switchMap, catchError and takeUntilDestroyed, like the\n   review fix in f1312b0. load() is still public, so RecycleComponent\n   keeps working.\n7. Edit route: paramMap now uses switchMap into getById with\n   takeUntilDestroyed, so a late response for an old id can't overwrite\n   the form. A failed getById is now logged.\n8. Dead code: removed addressId and getMessage from\n   AddressSelectComponent, plus their spec case.\n9. Duplicated SCSS: the page sizing moved into address.component.scss as\n   :host(.page-card). Both pages already set that class, but nothing\n   used it before. The two page stylesheets now contain only\n   .center-container. I left that class duplicated, because almost every\n   page component in the repo has its own copy and moving it would go\n   beyond this change.\n10. Shared schema: new file\n    frontend/src/app/Models/address-form.schema.ts holds\n    AddressFormModel, addressFormSchema and the limit constants. The\n    template now uses those constants instead of hard-coded 8, 160 and\n    the range string.\n\nSigned-off-by: Jannik Hollenbach \u003cjannik.hollenbach@owasp.org\u003e",
+    "Author": "Jannik Hollenbach \u003cjannik.hollenbach@owasp.org\u003e",
+    "Committer": "Jannik Hollenbach \u003cjannik.hollenbach@owasp.org\u003e"
+  },
+  "Results": [
+    {
+      "Target": "frontend/src/app/app.guard.spec.ts",
+      "Class": "secret",
+      "Secrets": [
+        {
+          "RuleID": "jwt-token",
+          "Category": "JWT",
+          "Severity": "MEDIUM",
+          "Title": "JWT token",
+          "StartLine": 46,
+          "EndLine": 46,
+          "Code": {
+            "Lines": [
+              {
+                "Number": 44,
+                "Content": "        const guard = TestBed.inject(LoginGuard)",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "        const guard = TestBed.inject(LoginGuard)",
+                "FirstCause": false,
+                "LastCause": false
+              },
+              {
+                "Number": 45,
+                "Content": "",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "FirstCause": false,
+                "LastCause": false
+              },
+              {
+                "Number": 46,
+                "Content": "ocalStorage.setItem('token', '***********************************************************************************************************************************************************')",
+                "IsCause": true,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "ocalStorage.setItem('token', '***********************************************************************************************************************************************************')",
+                "FirstCause": true,
+                "LastCause": true
+              },
+              {
+                "Number": 47,
+                "Content": "        expect(guard.tokenDecode()).toEqual({",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "        expect(guard.tokenDecode()).toEqual({",
+                "FirstCause": false,
+                "LastCause": false
+              }
+            ]
+          },
+          "Match": "ocalStorage.setItem('token', '***********************************************************************************************************************************************************')",
+          "Offset": 1587
+        }
+      ]
+    },
+    {
+      "Target": "frontend/src/app/last-login-ip/last-login-ip.component.spec.ts",
+      "Class": "secret",
+      "Secrets": [
+        {
+          "RuleID": "jwt-token",
+          "Category": "JWT",
+          "Severity": "MEDIUM",
+          "Title": "JWT token",
+          "StartLine": 72,
+          "EndLine": 72,
+          "Code": {
+            "Lines": [
+              {
+                "Number": 70,
+                "Content": "",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "FirstCause": false,
+                "LastCause": false
+              },
+              {
+                "Number": 71,
+                "Content": "    it('should set Last-Login IP from JWT as trusted HTML', () =\u003e {",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "    it('should set Last-Login IP from JWT as trusted HTML', () =\u003e {",
+                "FirstCause": false,
+                "LastCause": false
+              },
+              {
+                "Number": 72,
+                "Content": "ocalStorage.setItem('token', '*******************************************************************************************************************************')",
+                "IsCause": true,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "ocalStorage.setItem('token', '*******************************************************************************************************************************')",
+                "FirstCause": true,
+                "LastCause": true
+              },
+              {
+                "Number": 73,
+                "Content": "        component.ngOnInit()",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "        component.ngOnInit()",
+                "FirstCause": false,
+                "LastCause": false
+              }
+            ]
+          },
+          "Match": "ocalStorage.setItem('token', '*******************************************************************************************************************************')",
+          "Offset": 2540
+        }
+      ]
+    },
+    {
+      "Target": "infrastructure/terraform/networking.tf",
+      "Class": "secret",
+      "Secrets": [
+        {
+          "RuleID": "private-key",
+          "Category": "AsymmetricPrivateKey",
+          "Severity": "HIGH",
+          "Title": "Asymmetric Private Key",
+          "StartLine": 171,
+          "EndLine": 171,
+          "Code": {
+            "Lines": [
+              {
+                "Number": 169,
+                "Content": "  name             = \"${var.project_name}-tls-cert\"",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "  name             = \"${var.project_name}-tls-cert\"",
+                "FirstCause": false,
+                "LastCause": false
+              },
+              {
+                "Number": 170,
+                "Content": "  certificate_body = file(\"${path.module}/certs/server.crt\")",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "  certificate_body = file(\"${path.module}/certs/server.crt\")",
+                "FirstCause": false,
+                "LastCause": false
+              },
+              {
+                "Number": 171,
+                "Content": "----BEGIN RSA PRIVATE KEY-----************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END RSA PRIVATE",
+                "IsCause": true,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "----BEGIN RSA PRIVATE KEY-----************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END RSA PRIVATE",
+                "FirstCause": true,
+                "LastCause": true
+              },
+              {
+                "Number": 172,
+                "Content": "",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "FirstCause": false,
+                "LastCause": false
+              }
+            ]
+          },
+          "Match": "----BEGIN RSA PRIVATE KEY-----************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END RSA PRIVATE",
+          "Offset": 4039
+        }
+      ]
+    },
+    {
+      "Target": "lib/insecurity.ts",
+      "Class": "secret",
+      "Secrets": [
+        {
+          "RuleID": "private-key",
+          "Category": "AsymmetricPrivateKey",
+          "Severity": "HIGH",
+          "Title": "Asymmetric Private Key",
+          "StartLine": 21,
+          "EndLine": 21,
+          "Code": {
+            "Lines": [
+              {
+                "Number": 19,
+                "Content": "",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "FirstCause": false,
+                "LastCause": false
+              },
+              {
+                "Number": 20,
+                "Content": "export const publicKey = fs ? fs.readFileSync('encryptionkeys/jwt.pub', 'utf8') : 'placeholder-publi",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "export const publicKey = fs ? fs.readFileSync('encryptionkeys/jwt.pub', 'utf8') : 'placeholder-publi",
+                "FirstCause": false,
+                "LastCause": false
+              },
+              {
+                "Number": 21,
+                "Content": "----BEGIN RSA PRIVATE KEY-----****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END RSA PRIVATE",
+                "IsCause": true,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "----BEGIN RSA PRIVATE KEY-----****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END RSA PRIVATE",
+                "FirstCause": true,
+                "LastCause": true
+              },
+              {
+                "Number": 22,
+                "Content": "",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "FirstCause": false,
+                "LastCause": false
+              }
+            ]
+          },
+          "Match": "----BEGIN RSA PRIVATE KEY-----****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END RSA PRIVATE",
+          "Offset": 778
+        }
+      ]
+    },
+    {
+      "Target": "terraform/networking.tf",
+      "Class": "secret",
+      "Secrets": [
+        {
+          "RuleID": "private-key",
+          "Category": "AsymmetricPrivateKey",
+          "Severity": "HIGH",
+          "Title": "Asymmetric Private Key",
+          "StartLine": 171,
+          "EndLine": 171,
+          "Code": {
+            "Lines": [
+              {
+                "Number": 169,
+                "Content": "  name             = \"${var.project_name}-tls-cert\"",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "  name             = \"${var.project_name}-tls-cert\"",
+                "FirstCause": false,
+                "LastCause": false
+              },
+              {
+                "Number": 170,
+                "Content": "  certificate_body = file(\"${path.module}/certs/server.crt\")",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "  certificate_body = file(\"${path.module}/certs/server.crt\")",
+                "FirstCause": false,
+                "LastCause": false
+              },
+              {
+                "Number": 171,
+                "Content": "----BEGIN RSA PRIVATE KEY-----************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END RSA PRIVATE",
+                "IsCause": true,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "----BEGIN RSA PRIVATE KEY-----************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END RSA PRIVATE",
+                "FirstCause": true,
+                "LastCause": true
+              },
+              {
+                "Number": 172,
+                "Content": "",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "FirstCause": false,
+                "LastCause": false
+              }
+            ]
+          },
+          "Match": "----BEGIN RSA PRIVATE KEY-----************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END RSA PRIVATE",
+          "Offset": 4039
+        }
+      ]
+    }
+  ]
+}
